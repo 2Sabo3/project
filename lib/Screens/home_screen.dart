@@ -1,58 +1,180 @@
 import 'package:flutter/material.dart';
-import 'package:project/Provider/Category/categorycall.dart';
-import 'package:project/Provider/Category/categorymodel.dart';
-import 'package:project/Widgets/jobitem.dart';
+import 'package:project/Widgets/tilelayout.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  Future<Category> _categorylist;
-
-  var isInit = true;
-
-  @override
-  void initState() {
-    _categorylist = FetchingCategory.fetchdata();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Inter Hiring'),
+        title: Text(
+          'Project ',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
       ),
-      body: FutureBuilder<Category>(
-        future: _categorylist,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GridView.builder(
-              padding: const EdgeInsets.all(25),
-              itemCount: snapshot.data.jobCount,
-              itemBuilder: (ctx, i) {
-                return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return JobsScreen();
-                      }));
-                    },
-                    child: Text(snapshot.data.jobs[i].name));
-              },
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 90,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 15,
+              left: 10,
+            ),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.amber,
+                  radius: 50,
+                  backgroundImage: NetworkImage(
+                    'https://images.unsplash.com/photo-1497021707778-a743a0bb2961?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fHBlcnNvbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      '200 ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Images',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      '30',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Followers ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      '168',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Following ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: 8,
+            ),
+            child: ListTile(
+              title: Text(
+                'Vishal',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            );
-          }
-          return null;
-        },
+              subtitle: Text(
+                'Kill a demon today , face the devil tommorrow',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 180,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Colors.grey,
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Follow',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 180,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Colors.grey,
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Message',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          GridViewLayout(),
+        ],
       ),
     );
   }
